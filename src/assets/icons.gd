@@ -9,4 +9,4 @@ class_name Icons
 
 
 const ICONS = preload("icons.tres")
-const LIGHT_ICONS = preload("res://src/global/light_icons.tres")
+const LIGHT_ICONS = preload("light_icons.tres")

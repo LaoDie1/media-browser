@@ -29,10 +29,11 @@ func item_event(event, item: MediaFileNode):
 func _init():
 	for item:String in [
 		"打开",
-		"复制文件名",
-		"复制缩略图地址",
-		"-",
 		"重新加载缩略图",
+		"-",
+		"复制文件名",
+		"复制文件地址",
+		"复制缩略图地址",
 		"-",
 		"在文件管理器中显示",
 	]:
@@ -49,6 +50,8 @@ func _init():
 					FileUtil.shell_open(file)
 				"复制文件名":
 					DisplayServer.clipboard_set(file.get_file())
+				"复制文件地址":
+					DisplayServer.clipboard_set(file)
 				"复制缩略图地址":
 					DisplayServer.clipboard_set(last_item.thumbnail_path)
 				"重新加载缩略图":

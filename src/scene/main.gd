@@ -14,9 +14,6 @@ extends Node
 
 
 func _enter_tree():
-	image_size_slider.drag_ended.connect(
-		func(status): update_image_size()
-	)
 	image_size_label.text = str(int(image_size_slider.value))
 
 
@@ -33,8 +30,10 @@ func update_image_size():
 	var value = image_size_slider.value
 	image_size_label.text = str(int(value))
 	MediaFileNode.image_size = Vector2(value, value) 
-	media_container.item_size = Vector2(value, value)
 
 
 func _on_h_slider_value_changed(value):
+	update_image_size()
+
+func _on_h_slider_drag_ended(value_changed):
 	update_image_size()

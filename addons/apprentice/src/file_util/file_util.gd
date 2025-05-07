@@ -82,11 +82,16 @@ static func write_as_string(
 	return false
 
 static func load_image(file_path: String) -> Image:
+	var image: Image
 	if file_path.get_extension().to_lower() == "svg":
-		var image = Image.new()
+		image = Image.new()
 		image.load_svg_from_string( read_as_string(file_path) )
 		return image
-	return Image.load_from_file(file_path)
+	image = Image.load_from_file(file_path)
+	if image == null:  # 某些后缀错误的文件会这里加载为 null
+		var bytes = FileAccess.get_file_as_bytes(file_path)
+		return load_image_by_buff(bytes)
+	return image
 
 static func save_image(image: Image, path: String):
 	match path.get_extension().to_lower():

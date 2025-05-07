@@ -6,7 +6,6 @@ var config_data: Dictionary = {}
 
 
 func _ready():
-	
 	# 项目配置数据
 	if FileUtil.file_exists(config_data_path):
 		var v = FileUtil.read_as_var(config_data_path)
@@ -54,13 +53,10 @@ func register_node(node: Node, property: String):
 	var node_propertys_dict = Dictionary(config_data.get_or_add("node_propertys", {}))
 	node_propertys_dict[node_path] = value
 
-
 func add_data(group = "", key = "", value = null) -> void:
 	var group_data_dict = Dictionary(config_data.get_or_add(group, {}))
 	group_data_dict[key] = value
 
-
 func get_data(group = "", key = "", default = null):
 	var group_data_dict = Dictionary(config_data.get_or_add(group, {}))
 	return group_data_dict.get_or_add(key, default)
-	

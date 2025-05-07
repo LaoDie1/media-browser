@@ -24,7 +24,6 @@ signal loaded
 
 ## 缩略图地址
 var thumbnail_path: String
-var _finished = false
 
 
 static var _cache_files : Dictionary = {}
@@ -54,22 +53,22 @@ func _exit_tree():
 
 
 func update_thumbnail():
-	if _finished:
+	if FileAccess.file_exists(thumbnail_path):
 		return
 	
 	match FileType.get_suffix_type(media_file):
 		FileType.IMAGE:
 			_push(media_file)
 			type_icon_node.texture = preload("res://src/assets/icons8-image-48.png")
-			_finished = true
 		
 		FileType.VIDEO:
-			var fn = media_file.get_file()
+			var fn : String = media_file.get_file()
 			type_icon_node.texture = preload("res://src/assets/icons8-video-48.png")
 			if not fn.is_valid_filename():
 				var new_path = media_file.get_base_dir().path_join(fn.validate_filename()) 
 				if media_file != new_path and FileUtil.rename(media_file, new_path) == OK:
 					media_file = new_path
+			
 			# 加载视频缩略图
 			thumbnail_path = FFMpegUtil.generate_video_preview_image(media_file)
 			var time = Time.get_ticks_msec()
@@ -77,7 +76,6 @@ func update_thumbnail():
 			while not FileAccess.file_exists(thumbnail_path) and Time.get_ticks_msec() - time < MAX_TIME:
 				await Engine.get_main_loop().process_frame
 			_push(thumbnail_path)
-			_finished = true
 			
 		_:
 			queue_free()
@@ -90,6 +88,7 @@ func _push(image_path: String):
 	if FileAccess.file_exists(media_file):
 		_cache_files[media_file] = null
 	
+	thumbnail_path = image_path
 	var image : Image = null
 	if FileAccess.file_exists(image_path):
 		image = FileUtil.load_image(image_path)

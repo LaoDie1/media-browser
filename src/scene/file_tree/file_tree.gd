@@ -5,7 +5,6 @@
 # - datetime: 2024-05-01 23:12:48
 # - version: 4.2.2.stable
 #============================================================
-class_name FileTree
 extends Tree
 
 
