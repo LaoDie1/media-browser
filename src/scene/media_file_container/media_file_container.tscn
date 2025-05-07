@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpaju0dw37y55"]
+
+[ext_resource type="Script" uid="uid://cn2teerbulbtn" path="res://src/scene/media_file_container/media_file_container.gd" id="1_vbsci"]
+[ext_resource type="PackedScene" uid="uid://bnq6oi1ejlh7q" path="res://src/scene/media_file_node/media_file_node.tscn" id="2_0ycrl"]
+
+[node name="MediaFileContainer" type="Control" node_paths=PackedStringArray("item_container")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vbsci")
+media_file_node = ExtResource("2_0ycrl")
+item_container = NodePath("ScrollContainer/HFlowContainer")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HFlowContainer" type="HFlowContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
