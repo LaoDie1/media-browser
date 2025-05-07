@@ -92,6 +92,6 @@ func _push(image_path: String):
 	var image : Image = null
 	if FileAccess.file_exists(image_path):
 		image = FileUtil.load_image(image_path)
-	thumbnail_node.texture = ImageTexture.create_from_image(image) if image else preload("res://icon.svg")
+	thumbnail_node.texture = ImageTexture.create_from_image(image) if image != null else preload("res://icon.svg")
 	file_name_node.text = media_file.get_file()
 	loaded.emit()

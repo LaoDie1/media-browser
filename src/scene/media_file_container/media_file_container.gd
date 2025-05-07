@@ -56,14 +56,13 @@ func _ready():
 
 
 func load_files(files: Array):
-	var media_node: MediaFileNode
 	for path:String in files:
 		path = path.replace("\\", "/")
 		if DirAccess.dir_exists_absolute(path):
 			var list = FileUtil.scan_file(path, true)
 			await load_files(list)
 		else:
-			media_node = add_item(path)
+			add_item(path)
 		
 		if item_container.get_child_count() % 20 == 0:
 			await Engine.get_main_loop().process_frame
@@ -103,7 +102,7 @@ func update_item_thumbnail():
 			list.append(child)
 	
 	# 加载当前屏幕中显示的节点
-	var last_key
+	var last_key = null
 	for key in _item_pos_dict.keys():
 		if key >= 0:
 			list = _item_pos_dict[last_key if last_key else key]
